@@ -80,6 +80,7 @@ background-color: cornsilk;
 
 .bonus-button-container {
  background: cornflowerblue;
+ width: 100%;
 }
 .button-container {
     height: 60%;
