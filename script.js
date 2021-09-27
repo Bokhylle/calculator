@@ -3,6 +3,11 @@ let calcMem = 0;
 let displayValue = '';
 let displayNumValue;
 let operatorChoice;
+let calcMemPrev;
+let equalPressed = 0;
+let operatorPressed = 0;
+let operatorActive = 0;
+let memStorage = 0;
 
 //Calculator basic functions
 const add = function(a, b) {
@@ -35,17 +40,30 @@ const operate = function(operator, a, b) {
     }
 }
 const calculate = function() {
-    displayValue = operate(operatorChoice, calcMem, displayNumValue);
-    calcDisplay.textContent = displayValue;
+    if (operatorPressed > 0) {
+        equalPressed = 0;
+        operatorPressed = 0;
+    }
+    if (equalPressed > 0) {
+        displayValue = operate(operatorChoice, displayNumValue, calcMemPrev);
+    } else {
+        calcMemPrev = parseFloat(displayValue);
+        displayValue = operate(operatorChoice, calcMem, displayNumValue);
+    }
     displayNumValue = parseFloat(displayValue)
-    calcMem = displayNumValue;
+    calcDisplay.textContent = parseFloat(displayValue.toFixed(9 - Math.floor(displayNumValue).toString().length));
     displayValue = ''
+    equalPressed++
+    operatorEnable()
+    operatorActive = 0
+
 }
 const operatorEnable = function() {
     addBtn.disabled = false;
     divideBtn.disabled = false;
     multiplyBtn.disabled = false;
     subtractBtn.disabled = false;
+    commaBtn.disabled = false;
 }
 //Element Selectors
     //buttons
@@ -69,6 +87,9 @@ const divideBtn = document.querySelector('.divide');
 const memClearBtn = document.querySelector('.memClear');
 const memAddBtn = document.querySelector('.memAdd');
 const memSubtractBtn = document.querySelector('.memSubtract');
+const memCallBtn = document.querySelector('.memCall');
+const onOffBtn = document.querySelector('.onOff');
+const themeBtn = document.querySelector('.theme');
 
     //divs
 const calcDisplay = document.querySelector('.display');
@@ -79,6 +100,10 @@ clearBtn.onclick = function() {
     calcMem = 0;
     displayValue = ''
     displayNumValue = 0;
+    calcMemPrev = 0;
+    equalPressed = 0;
+    operatorEnable()
+    operatorActive = 0
     }
 oneBtn.onclick = function() {
     displayValue += '1'
@@ -139,43 +164,60 @@ commaBtn.onclick = function() {
     commaBtn.disabled = true;
 }
 addBtn.onclick = function() {
-    if (calcMem != 0) {
-        calculate();
-    } else {
-    calcMem = displayNumValue;
-    displayValue = '';
+    if (operatorActive !== 1) {
+        calcMem = displayNumValue;
+        displayValue = '';
     }
     operatorChoice = 'add'
+    operatorEnable();
+    this.disabled = true
+    operatorPressed++
+    operatorActive = 1;
 }
 subtractBtn.onclick = function() {
-    if (calcMem != 0) {
-        calculate()
-    } else {
-    calcMem = displayNumValue;
-    displayValue = '';
+    if (operatorActive !== 1) {
+        calcMem = displayNumValue;
+        displayValue = '';
     }
     operatorChoice = 'subtract'
+    operatorEnable();
+    this.disabled = true
+    operatorPressed++
+    operatorActive = 1;
 }
 divideBtn.onclick = function() {
-    if (calcMem != 0) {
-        calcMem /= displayNumValue;
-        calcDisplay.textContent = calcMem;
+    if (operatorActive !== 1) {
+        calcMem = displayNumValue;
         displayValue = '';
-    } else {
-    calcMem = displayNumValue;
-    displayValue = '';
     }
     operatorChoice = 'divide'
+    operatorEnable();
+    this.disabled = true
+    operatorPressed++
+    operatorActive = 1;
 }
 multiplyBtn.onclick = function() {
-    if (calcMem != 0) {
-        calcMem *= displayNumValue;
-        calcDisplay.textContent = calcMem;
+    if (operatorActive !== 1) {
+        calcMem = displayNumValue;
         displayValue = '';
-    } else {
-    calcMem = displayNumValue;
-    displayValue = '';
     }
     operatorChoice = 'multiply'
+    operatorEnable();
+    this.disabled = true
+    operatorPressed++
+    operatorActive = 1;
 }
 equalsBtn.onclick = calculate
+memAddBtn.onclick = function() {
+    memStorage += displayNumValue;
+}
+memSubtractBtn.onclick = function() {
+    memStorage -= displayNumValue;
+}
+memClearBtn.onclick = function() {
+    memStorage = 0;
+}
+memCallBtn.onclick = function() {
+    displayNumValue = memStorage;
+    calcDisplay.textContent = parseFloat(displayNumValue.toFixed(9 - Math.floor(displayNumValue).toString().length));
+}
