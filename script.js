@@ -39,6 +39,20 @@ const operate = function(operator, a, b) {
         return divide(a, b);
     }
 }
+const chooseDecimalPos = function() {
+    let decimalPlacesVar;
+    let length = Math.floor(displayNumValue).toString().length;
+    if(length > 8) {
+        decimalPlacesVar = 8;
+    } else {
+        decimalPlacesVar = length + 1
+    }
+    let roundingNo = 1000000000;
+    for (let i = 0; i < decimalPlacesVar; i++) {
+        roundingNo /= 10
+    }
+    return roundingNo;
+}
 const calculate = function() {
     if (operatorPressed > 0) {
         equalPressed = 0;
@@ -51,7 +65,8 @@ const calculate = function() {
         displayValue = operate(operatorChoice, calcMem, displayNumValue);
     }
     displayNumValue = parseFloat(displayValue)
-    calcDisplay.textContent = parseFloat(displayValue.toFixed(9 - Math.floor(displayNumValue).toString().length));
+    let displayVar = (Math.round(displayNumValue * chooseDecimalPos()) / chooseDecimalPos())
+    calcDisplay.textContent = displayVar
     displayValue = ''
     equalPressed++
     operatorEnable()
@@ -92,7 +107,7 @@ const onOffBtn = document.querySelector('.onOff');
 const themeBtn = document.querySelector('.theme');
 
     //divs
-const calcDisplay = document.querySelector('.display');
+const calcDisplay = document.querySelector('.numberDisp');
 
 //Button onclick
 clearBtn.onclick = function() {
@@ -106,68 +121,101 @@ clearBtn.onclick = function() {
     operatorActive = 0
     }
 oneBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '1'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 twoBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '2'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 threeBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '3'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 fourBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '4'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 fiveBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '5'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 sixBtn.onclick = function() {
-    calcDisplay.textContent = displayValue;
+    if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '6'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 sevenBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '7'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 eightBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '8'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 nineBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '9'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 zeroBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '0'
     displayNumValue = parseFloat(displayValue)
     calcDisplay.textContent = displayNumValue;
 
 }
 commaBtn.onclick = function() {
+        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+        return
+    }
     displayValue += '.'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
     commaBtn.disabled = true;
 }
 addBtn.onclick = function() {
-    if (operatorActive !== 1) {
-        calcMem = displayNumValue;
-        displayValue = '';
+    if (operatorActive == 1) {
+        calculate();
     }
+    calcMem = displayNumValue;
+    displayValue = '';
     operatorChoice = 'add'
     operatorEnable();
     this.disabled = true
@@ -175,10 +223,11 @@ addBtn.onclick = function() {
     operatorActive = 1;
 }
 subtractBtn.onclick = function() {
-    if (operatorActive !== 1) {
-        calcMem = displayNumValue;
-        displayValue = '';
-    }
+    if (operatorActive == 1) {
+        calculate();
+    }  
+    calcMem = displayNumValue;
+    displayValue = '';
     operatorChoice = 'subtract'
     operatorEnable();
     this.disabled = true
@@ -186,10 +235,11 @@ subtractBtn.onclick = function() {
     operatorActive = 1;
 }
 divideBtn.onclick = function() {
-    if (operatorActive !== 1) {
-        calcMem = displayNumValue;
-        displayValue = '';
+    if (operatorActive == 1) {
+        calculate();
     }
+    calcMem = displayNumValue;
+    displayValue = '';
     operatorChoice = 'divide'
     operatorEnable();
     this.disabled = true
@@ -197,10 +247,11 @@ divideBtn.onclick = function() {
     operatorActive = 1;
 }
 multiplyBtn.onclick = function() {
-    if (operatorActive !== 1) {
-        calcMem = displayNumValue;
-        displayValue = '';
-    }
+    if (operatorActive == 1) {
+        calculate();
+    }   
+    calcMem = displayNumValue;
+    displayValue = '';
     operatorChoice = 'multiply'
     operatorEnable();
     this.disabled = true
