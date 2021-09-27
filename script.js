@@ -34,7 +34,13 @@ const operate = function(operator, a, b) {
         return divide(a, b);
     }
 }
-
+const calculate = function() {
+    displayValue = operate(operatorChoice, calcMem, displayNumValue);
+    calcDisplay.textContent = displayValue;
+    displayNumValue = parseFloat(displayValue)
+    calcMem = displayNumValue;
+    displayValue = ''
+}
 const operatorEnable = function() {
     addBtn.disabled = false;
     divideBtn.disabled = false;
@@ -66,10 +72,13 @@ const memSubtractBtn = document.querySelector('.memSubtract');
 
     //divs
 const calcDisplay = document.querySelector('.display');
+
 //Button onclick
 clearBtn.onclick = function() {
     calcDisplay.textContent = "";
     calcMem = 0;
+    displayValue = ''
+    displayNumValue = 0;
     }
 oneBtn.onclick = function() {
     displayValue += '1'
@@ -97,6 +106,7 @@ fiveBtn.onclick = function() {
     displayNumValue = parseFloat(displayValue)
 }
 sixBtn.onclick = function() {
+    calcDisplay.textContent = displayValue;
     displayValue += '6'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
@@ -116,6 +126,12 @@ nineBtn.onclick = function() {
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
+zeroBtn.onclick = function() {
+    displayValue += '0'
+    displayNumValue = parseFloat(displayValue)
+    calcDisplay.textContent = displayNumValue;
+
+}
 commaBtn.onclick = function() {
     displayValue += '.'
     calcDisplay.textContent = displayValue;
@@ -123,8 +139,43 @@ commaBtn.onclick = function() {
     commaBtn.disabled = true;
 }
 addBtn.onclick = function() {
+    if (calcMem != 0) {
+        calculate();
+    } else {
     calcMem = displayNumValue;
+    displayValue = '';
+    }
     operatorChoice = 'add'
-    operatorEnable();
-    this.disabled = true;
 }
+subtractBtn.onclick = function() {
+    if (calcMem != 0) {
+        calculate()
+    } else {
+    calcMem = displayNumValue;
+    displayValue = '';
+    }
+    operatorChoice = 'subtract'
+}
+divideBtn.onclick = function() {
+    if (calcMem != 0) {
+        calcMem /= displayNumValue;
+        calcDisplay.textContent = calcMem;
+        displayValue = '';
+    } else {
+    calcMem = displayNumValue;
+    displayValue = '';
+    }
+    operatorChoice = 'divide'
+}
+multiplyBtn.onclick = function() {
+    if (calcMem != 0) {
+        calcMem *= displayNumValue;
+        calcDisplay.textContent = calcMem;
+        displayValue = '';
+    } else {
+    calcMem = displayNumValue;
+    displayValue = '';
+    }
+    operatorChoice = 'multiply'
+}
+equalsBtn.onclick = calculate
