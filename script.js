@@ -14,6 +14,8 @@ let subActive = 0;
 let divideActive = 0;
 let multiPressMem = 0;
 let decimalPlacesVar;
+let off;
+let logoClick = 0;
 
 //Calculator basic functions
 const add = function(a, b) {
@@ -31,6 +33,19 @@ const divide = function(a, b) {
 }
 
 //Calculator Operations
+const reset = function() {
+    calcDisplay.textContent = "0";
+    calcMem = 0;
+    displayValue = ''
+    displayNumValue = 0;
+    calcMemPrev = 0;
+    equalPressed = 0;
+    operatorEnable()
+    operatorActive = 0;
+    multiPressMem = 0;
+    decimalPlacesVar = 0
+    multiPress()
+}
 const operate = function(operator, a, b) {
     if(operator == 'add') {
         return add(a, b);
@@ -126,24 +141,14 @@ const memCallBtn = document.querySelector('.memCall');
 const onOffBtn = document.querySelector('.onOff');
 const themeBtn = document.querySelector('.theme');
 const invertBtn = document.querySelector('.invert');
+const logoBtn = document.querySelector('.logo');
 
     //divs
 const calcDisplay = document.querySelector('.numberDisp');
+const calcBody = document.querySelector('.calc-container')
 
 //Button onclick
-clearBtn.onclick = function() {
-    calcDisplay.textContent = "";
-    calcMem = 0;
-    displayValue = ''
-    displayNumValue = 0;
-    calcMemPrev = 0;
-    equalPressed = 0;
-    operatorEnable()
-    operatorActive = 0;
-    multiPressMem = 0;
-    decimalPlacesVar = 0
-    multiPress()
-    }
+clearBtn.onclick = reset;
 oneBtn.onclick = function() {
     //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
     //     return
@@ -378,8 +383,35 @@ memClearBtn.onclick = function() {
 }
 memCallBtn.onclick = function() {
     displayNumValue = memStorage;
-    calcDisplay.textContent = parseFloat(displayNumValue.toFixed(9 - Math.floor(displayNumValue).toString().length));
+    let displayVar = (Math.round(displayNumValue * chooseDecimalPos()) / chooseDecimalPos())
+    calcDisplay.textContent = displayVar
 }
-// invertBtn.onclick = function() {
+invertBtn.onclick = function() {
+    displayNumValue = displayNumValue * -1;
+    let displayVar = (Math.round(displayNumValue * chooseDecimalPos()) / chooseDecimalPos())
+    calcDisplay.textContent = displayVar
 
-// }
+}
+onOffBtn.onclick = function() {
+    if (off == 1) {
+        calcDisplay.classList.remove('offToggle')
+        calcDisplay.classList.add('onToggle');
+        off = 0
+        reset()
+        return;
+    }
+    calcDisplay.classList.add('offToggle')
+    calcDisplay.classList.remove('onToggle');
+    reset()
+    off = 1;
+}
+logoBtn.onclick = function() {
+    if(logoClick >= 10) {
+        calcBody.classList.toggle('inverted')
+        logoClick = 0;
+        return;
+    }
+    logoBtn.classList.add('clicked');
+    this.addEventListener('transitionend', unClick => this.classList.remove('clicked')); 
+    logoClick++
+}

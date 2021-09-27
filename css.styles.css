@@ -4,10 +4,22 @@
 }
 :root {
     --backgroundImg: url(./img/fish.png);
+    --calcColor: rgb(221, 208, 208);
+    --buttoncolor: rgb(26, 26, 26);
 }
 @font-face {
     font-family: digital;
     src: url(./font/Digital-Display.ttf);
+}
+@keyframes onOff {
+    0%      {color: rgba(0, 0, 0, 1)}
+    100%    {color: rgba(0, 0, 0, 0)}
+    
+}
+@keyframes offOn {
+    100%      {color: rgba(0, 0, 0, 1)}
+    0%    {color: rgba(0, 0, 0, 0)}
+    
 }
 html {
     height: 100vh;
@@ -19,7 +31,7 @@ display: flex;
 height: 100%;
 justify-content: center;
 align-items: center;
-background-color: cornsilk;
+background-color: rgb(102, 157, 219);
 }
 .flex {
     display: flex;
@@ -35,9 +47,20 @@ background-color: cornsilk;
 .calc-container{
     width: 95%;
     height: 95%;
+    max-width: 500px;
+    max-height: 1000px;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    border-radius: 20px;
+    border-style: groove;
+    border-color: var(--calcColor);
+    border-width: 5px;
+    box-shadow: 5px 5px 25px black;
+    transition-duration: 0.5s;
+}
+.inverted {
+    transform: rotate(180deg);
 }
 .calc-top-container {
     flex-direction: column;
@@ -64,9 +87,12 @@ background-color: cornsilk;
     height: 50%;
     position: relative;
     padding: auto;
-    background-color: tomato;       
+    background-color: var(--calcColor);       
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
+    border-style: groove;
+    border-color: var(--calcColor);
 
 }
 .numberDisp {
@@ -76,31 +102,68 @@ background-color: cornsilk;
     font-size: 54px;
     padding: 5px;
     position: relative;
+    color: rgba(0, 0, 0, 1)
+}
+.offToggle {
+    animation-name: onOff;
+    animation-delay: 0.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.onToggle {
+    animation-name: offOn;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
 }
 .charge-box {
-    justify-content: end;
+
     width: 100%;
     height: 30%;
-
+    align-items: flex-end;
 
 }
 .inverse-border {
-    border-radius: 0px 0px 25px 0px;
+border-radius: 0px 0px 30px 0px;;
     width: 70%;
+    height: 80%;
+    background-image: var(--backgroundImg);
+    border-color: var(--calcColor);
+    background-attachment: fixed;
+    z-index: 1;
+    border-bottom: ridge;
+    border-color: var(--calcColor);
+    box-shadow: 15px 20px 10px 1px var(--calcColor);
 }
 .charger {
     width: 30%;
+    height: 80%;
     border-radius: 25px 0px 0px 0px;
-}
+    background-color: var(--calcColor);
+    border-top: ridge;
+    border-left: ridge;
+    border-color: var(--calcColor);
+    align-items: center;
+    justify-content: right;
 
+}
+.boxback {
+    background-color: var(--calcColor);
+    width: 66%;
+    height: 10%;
+    position: absolute;
+    z-index: 0;
+    display: none;
+}
 .bonus-button-container {
- background: cornflowerblue;
+ background: var(--calcColor);
  width: 100%;
+ height: 10%;
 }
 .button-container {
     height: 60%;
     width: 100%;
-    background-color: cornsilk;
+    background-color: var(--calcColor);
 }
 .button {
     width: 33%;
@@ -109,12 +172,12 @@ background-color: cornsilk;
     align-items: center;
 }
 .number-container {
-    width: 65%;
+    width: 60%;
     height: 100%;
     flex-wrap: wrap;
 }
 .operator-container {
-    width: 35%;
+    width: 40%;
     height: 100%;
     flex-wrap: wrap;
 
@@ -122,7 +185,7 @@ background-color: cornsilk;
 }
 .operator-container .button {
     height: 25%;
-    width: auto;
+    width: 50%;
 }
 .operator-container .button.plus {
     flex-basis: 50%;
@@ -130,5 +193,38 @@ background-color: cornsilk;
 .background-img {
     background-attachment: local;
     background-image: var(--backgroundImg);
+    background-attachment: fixed;
     background-size: auto;
+}
+.bonus-button-container .input-btn {
+    height: 30%;
+    width: 65%;
+    font-size: 10px;
+}
+.input-btn {
+    height: 50%;
+    width: 65%;
+}
+.input-btn.add {
+    height: 76%;
+}
+button {
+    font-family: monospace;
+    background-color: var(--buttoncolor);
+    border-radius: 10px;
+    color: whitesmoke
+}
+.gradient {
+    background: rgb(12,9,65);
+    background: linear-gradient(61deg, rgba(12,9,65,1) 0%, rgba(9,9,121,1) 35%, rgba(82,67,181,1) 100%);
+    background-size: cover;
+    background-attachment: fixed;
+}
+.logo {
+    height: 50px;
+    width: 50%;
+    transition-duration: 0.07s;
+}
+.clicked {
+    transform: scale(0.9);
 }
