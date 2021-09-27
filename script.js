@@ -8,6 +8,11 @@ let equalPressed = 0;
 let operatorPressed = 0;
 let operatorActive = 0;
 let memStorage = 0;
+let multActive = 0;
+let addActive = 0;
+let subActive = 0;
+let divideActive = 0;
+let multiPressMem = 0;
 
 //Calculator basic functions
 const add = function(a, b) {
@@ -70,8 +75,17 @@ const calculate = function() {
     displayValue = ''
     equalPressed++
     operatorEnable()
+    multiPress();
     operatorActive = 0
+    multiPressMem = 0;
 
+}
+const multiPressCalculate = function() {
+    displayValue = operate(operatorChoice, calcMem, multiPressMem);
+    displayNumValue = parseFloat(displayValue)
+    let displayVar = (Math.round(displayNumValue * chooseDecimalPos()) / chooseDecimalPos())
+    calcDisplay.textContent = displayVar
+    displayValue = '';
 }
 const operatorEnable = function() {
     addBtn.disabled = false;
@@ -79,6 +93,12 @@ const operatorEnable = function() {
     multiplyBtn.disabled = false;
     subtractBtn.disabled = false;
     commaBtn.disabled = false;
+}
+const multiPress = function() {
+    multActive = 0;
+    addActive = 0;
+    subActive = 0;
+    divideActive = 0;
 }
 //Element Selectors
     //buttons
@@ -118,7 +138,9 @@ clearBtn.onclick = function() {
     calcMemPrev = 0;
     equalPressed = 0;
     operatorEnable()
-    operatorActive = 0
+    operatorActive = 0;
+    multiPressMem = 0;
+    multiPress()
     }
 oneBtn.onclick = function() {
         if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
@@ -211,50 +233,123 @@ commaBtn.onclick = function() {
     commaBtn.disabled = true;
 }
 addBtn.onclick = function() {
+    if (addActive == 1) {
+        multiPressMem = displayNumValue;
+        multiPressCalculate()
+        addActive = 2;
+        calcMem = displayNumValue
+        return;
+    }
+    if(addActive == 2){
+        multiPressCalculate()
+        calcMem = displayNumValue
+        return;
+    }
     if (operatorActive == 1) {
-        calculate();
+        if(subActive > 0 || divideActive > 0 || multActive > 0) {
+            multiPressCalculate()
+            multiPress()
+            addActive = 1;
+        } else {
+            calculate();
+        }
     }
     calcMem = displayNumValue;
     displayValue = '';
     operatorChoice = 'add'
     operatorEnable();
-    this.disabled = true
+    multiPress()
+    addActive = 1;
     operatorPressed++
     operatorActive = 1;
 }
 subtractBtn.onclick = function() {
-    if (operatorActive == 1) {
-        calculate();
+    if (subActive == 1) {
+        multiPressMem = displayNumValue;
+        multiPressCalculate()
+        subActive = 2;
+        calcMem = displayNumValue
+        return;
+    }
+    if(subActive == 2){
+        multiPressCalculate()
+        calcMem = displayNumValue
+        return;
+    }
+    if (operatorActive == 1 ) {
+        if(addActive > 0 || divideActive > 0 || multActive > 0) {
+            multiPressCalculate()
+            multiPress()
+            subActive = 1;
+        } else {
+            calculate();
+        }
     }  
     calcMem = displayNumValue;
     displayValue = '';
     operatorChoice = 'subtract'
     operatorEnable();
-    this.disabled = true
+    subActive = 1;
     operatorPressed++
     operatorActive = 1;
 }
 divideBtn.onclick = function() {
+    if (divideActive == 1) {
+        multiPressMem = displayNumValue;
+        multiPressCalculate()
+        divideActive = 2;
+        calcMem = displayNumValue
+        return;
+    }
+    if(divideActive == 2){
+        multiPressCalculate()
+        calcMem = displayNumValue
+        return;
+    }
     if (operatorActive == 1) {
-        calculate();
+        if(addActive > 0 || subActive > 0 || multActive > 0) {
+            multiPressCalculate()
+            multiPress()
+            divideActive = 1;
+        } else {
+            calculate();
+        }
     }
     calcMem = displayNumValue;
     displayValue = '';
     operatorChoice = 'divide'
     operatorEnable();
-    this.disabled = true
+    divideActive = 1;
     operatorPressed++
     operatorActive = 1;
 }
 multiplyBtn.onclick = function() {
+    if (multActive == 1) {
+        multiPressMem = displayNumValue;
+        multiPressCalculate()
+        multActive = 2;
+        calcMem = displayNumValue
+        return;
+    }
+    if(multActive == 2){
+        multiPressCalculate()
+        calcMem = displayNumValue
+        return;
+    }
     if (operatorActive == 1) {
-        calculate();
-    }   
+        if(addActive > 0 || divideActive > 0 || subActive > 0) {
+            multiPressCalculate()
+            multiPress()
+            multActive = 1;
+        } else {
+            calculate();
+        }
+    }
     calcMem = displayNumValue;
     displayValue = '';
     operatorChoice = 'multiply'
     operatorEnable();
-    this.disabled = true
+    multActive = 1;
     operatorPressed++
     operatorActive = 1;
 }
