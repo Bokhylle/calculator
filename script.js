@@ -13,6 +13,7 @@ let addActive = 0;
 let subActive = 0;
 let divideActive = 0;
 let multiPressMem = 0;
+let decimalPlacesVar;
 
 //Calculator basic functions
 const add = function(a, b) {
@@ -45,7 +46,6 @@ const operate = function(operator, a, b) {
     }
 }
 const chooseDecimalPos = function() {
-    let decimalPlacesVar;
     let length = Math.floor(displayNumValue).toString().length;
     if(length > 8) {
         decimalPlacesVar = 8;
@@ -125,6 +125,7 @@ const memSubtractBtn = document.querySelector('.memSubtract');
 const memCallBtn = document.querySelector('.memCall');
 const onOffBtn = document.querySelector('.onOff');
 const themeBtn = document.querySelector('.theme');
+const invertBtn = document.querySelector('.invert');
 
     //divs
 const calcDisplay = document.querySelector('.numberDisp');
@@ -140,93 +141,105 @@ clearBtn.onclick = function() {
     operatorEnable()
     operatorActive = 0;
     multiPressMem = 0;
+    decimalPlacesVar = 0
     multiPress()
     }
 oneBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '1'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 twoBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '2'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 threeBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '3'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 fourBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '4'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 fiveBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '5'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 sixBtn.onclick = function() {
-    if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    // if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '6'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 sevenBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '7'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 eightBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '8'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 nineBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '9'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
 }
 zeroBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '0'
     displayNumValue = parseFloat(displayValue)
     calcDisplay.textContent = displayNumValue;
 
 }
 commaBtn.onclick = function() {
-        if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
-        return
-    }
+    //     if (calcDisplay.textContent.length >= 9 && operatorActive == 0) {
+    //     return
+    // }
+    // Functionality if digit limit is needed
     displayValue += '.'
     calcDisplay.textContent = displayValue;
     displayNumValue = parseFloat(displayValue)
@@ -246,7 +259,7 @@ addBtn.onclick = function() {
         return;
     }
     if (operatorActive == 1) {
-        if(subActive > 0 || divideActive > 0 || multActive > 0) {
+        if(subActive > 1 || divideActive > 1 || multActive > 1) {
             multiPressCalculate()
             multiPress()
             addActive = 1;
@@ -277,7 +290,7 @@ subtractBtn.onclick = function() {
         return;
     }
     if (operatorActive == 1 ) {
-        if(addActive > 0 || divideActive > 0 || multActive > 0) {
+        if(addActive > 1 || divideActive > 1 || multActive > 1) {
             multiPressCalculate()
             multiPress()
             subActive = 1;
@@ -307,7 +320,7 @@ divideBtn.onclick = function() {
         return;
     }
     if (operatorActive == 1) {
-        if(addActive > 0 || subActive > 0 || multActive > 0) {
+        if(addActive > 1 || subActive > 1 || multActive > 1) {
             multiPressCalculate()
             multiPress()
             divideActive = 1;
@@ -337,7 +350,7 @@ multiplyBtn.onclick = function() {
         return;
     }
     if (operatorActive == 1) {
-        if(addActive > 0 || divideActive > 0 || subActive > 0) {
+        if(addActive > 1 || divideActive > 1 || subActive > 1) {
             multiPressCalculate()
             multiPress()
             multActive = 1;
@@ -367,3 +380,6 @@ memCallBtn.onclick = function() {
     displayNumValue = memStorage;
     calcDisplay.textContent = parseFloat(displayNumValue.toFixed(9 - Math.floor(displayNumValue).toString().length));
 }
+// invertBtn.onclick = function() {
+
+// }
