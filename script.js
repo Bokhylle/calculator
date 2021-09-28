@@ -81,7 +81,7 @@ const calculate = function() {
     if (equalPressed > 0) {
         displayValue = operate(operatorChoice, displayNumValue, calcMemPrev);
     } else {
-        calcMemPrev = parseFloat(displayValue);
+        calcMemPrev = parseFloat(displayNumValue);
         displayValue = operate(operatorChoice, calcMem, displayNumValue);
     }
     displayNumValue = parseFloat(displayValue)
@@ -367,6 +367,7 @@ multiplyBtn.onclick = function() {
     displayValue = '';
     operatorChoice = 'multiply'
     operatorEnable();
+    multiPress()
     multActive = 1;
     operatorPressed++
     operatorActive = 1;
