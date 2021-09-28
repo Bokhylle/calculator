@@ -227,6 +227,13 @@ button {
     width: 50px;
     transition-duration: 0.07s;
 }
+.logo2 {
+    width: 40px;
+    height: 40px;
+    z-index: 4;
+    position: relative;
+    margin-right: 30px;
+}
 .clicked {
     transform: scale(0.9);
 }
