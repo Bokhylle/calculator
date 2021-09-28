@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 :root {
-    --backgroundImg: url(./img/fish.png);
+    --backgroundImg: url(./img/cuteBirdsmaller.jpg);
     --calcColor: rgb(221, 208, 208);
     --buttoncolor: rgb(26, 26, 26);
 }
@@ -128,9 +128,7 @@ background-color: rgb(102, 157, 219);
 border-radius: 0px 0px 30px 0px;;
     width: 70%;
     height: 80%;
-    background-image: var(--backgroundImg);
     border-color: var(--calcColor);
-    background-attachment: fixed;
     z-index: 1;
     border-bottom: ridge;
     border-color: var(--calcColor);
@@ -194,8 +192,7 @@ border-radius: 0px 0px 30px 0px;;
 .background-img {
     background-attachment: local;
     background-image: var(--backgroundImg);
-    background-attachment: fixed;
-    background-size: auto;
+    background-size: contain;
 }
 .bonus-button-container .input-btn {
     height: 45%;
@@ -223,7 +220,7 @@ button {
 }
 .logo {
     height: 50px;
-    width: 50%;
+    width: 50px;
     transition-duration: 0.07s;
 }
 .clicked {
