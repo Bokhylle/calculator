@@ -3,9 +3,13 @@
     box-sizing: border-box;
 }
 :root {
-    --backgroundImg: url(./img/giraffelong.jpg);
-    --calcColor: rgba(221, 208, 208, 0.808);
+    --backgroundImg: url(./img/cuteBird.jpg);
+    --calcColor: rgba(109, 106, 122, 0.836);
     --buttoncolor: rgb(26, 26, 26);
+    --theme1: url(./img/giraffelongsh.jpg);
+    --theme2: url(./img/cuteBird.jpg);
+    --theme3: url(./img/red.jpg);
+    --theme4: url(./img/Chorn\ Logo1200\ depth.png);
 }
 @font-face {
     font-family: digital;
@@ -22,7 +26,7 @@
     
 }
 html {
-    height: 100vh;
+    height: 95vh;
     width: 100vw;
     touch-action: manipulation;
 }
@@ -225,4 +229,44 @@ button {
 }
 .clicked {
     transform: scale(0.9);
+}
+.themeBox {
+    width: 90%;
+    height: 44%;
+    position: absolute;
+    background-color: var(--calcColor);
+    z-index: 5;
+    max-width: 490px;
+    max-height: 900px;
+    top: 39%;
+    border-radius: 20px;
+    border-style: ridge;
+    border-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.theme1, .theme2, .theme3, .theme4 {
+    width: 40%;
+    height: 40%;
+    background-color: black;
+    border-radius: 10px;
+}
+.theme1 {
+    background-image: var(--theme1);
+    background-size: cover;
+}
+.theme2 {
+    background-image: var(--theme2);
+    background-size: cover;
+}
+.theme3 {
+    background-image: var(--theme3);
+    background-size: cover;
+}
+.theme4 {
+    background-image: var(--theme4);
+    background-size: cover;
 }

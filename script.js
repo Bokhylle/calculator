@@ -16,6 +16,7 @@ let multiPressMem = 0;
 let decimalPlacesVar;
 let off;
 let logoClick = 0;
+let themeToggle = 0;
 
 //Calculator basic functions
 const add = function(a, b) {
@@ -146,6 +147,16 @@ const logoBtn = document.querySelector('.logo');
     //divs
 const calcDisplay = document.querySelector('.numberDisp');
 const calcBody = document.querySelector('.calc-container')
+
+const themeBox = document.createElement('div');
+const theme1 = document.createElement('div');
+const theme2 = document.createElement('div');
+const theme3 = document.createElement('div');
+const theme4 = document.createElement('div');
+const themeBtn1 = document.querySelector('.theme1')
+const themeBtn2 = document.querySelector('.theme2')
+const themeBtn3 = document.querySelector('.theme3')
+const themeBtn4 = document.querySelector('.theme4')
 
 //Button onclick
 clearBtn.onclick = reset;
@@ -386,6 +397,7 @@ memCallBtn.onclick = function() {
     displayNumValue = memStorage;
     let displayVar = (Math.round(displayNumValue * chooseDecimalPos()) / chooseDecimalPos())
     calcDisplay.textContent = displayVar
+    displayValue = ''
 }
 invertBtn.onclick = function() {
     displayNumValue = displayNumValue * -1;
@@ -416,3 +428,22 @@ logoBtn.onclick = function() {
     this.addEventListener('transitionend', unClick => this.classList.remove('clicked')); 
     logoClick++
 }
+// themeBtn.onclick = function() {
+//     if(themeToggle == 0) {
+//     themeBox.classList.add('themeBox')
+//     theme1.classList.add('theme1')
+//     theme2.classList.add('theme2')
+//     theme3.classList.add('theme3')
+//     theme4.classList.add('theme4')
+//     calcBody.appendChild(themeBox);
+//     themeBox.appendChild(theme1);
+//     themeBox.appendChild(theme2);
+//     themeBox.appendChild(theme3);
+//     themeBox.appendChild(theme4);
+    
+//     themeBtn1.onclick = function() {
+//         this.classList.add('clicked');
+//         this.addEventListener('transitionend', unClick => this.classList.remove('clicked')); 
+//     }
+// }
+// }
